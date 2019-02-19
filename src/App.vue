@@ -1,15 +1,16 @@
 <template>
-  <div id="app"><ClockingDay /></div>
+  <div id="app"><ClockingWeek /></div>
 </template>
 
 <script>
-//import Clocking from "./components/Clocking";
-import ClockingDay from "./components/ClockingDay";
+import ClockingWeek from "./components/ClockingWeek";
+
+//import ClockingDay from "./components/ClockingDay";
 
 export default {
   name: "App",
   components: {
-    ClockingDay
+    ClockingWeek
   }
 };
 </script>
