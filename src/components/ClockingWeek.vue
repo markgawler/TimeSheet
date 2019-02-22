@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Week</h1>
+    <h1>Week {{ week }}</h1>
+    <h3> {{dateMonday}}</h3>
     <ClockingDay
       v-for="day in days"
       :key="day.name"
@@ -14,11 +15,21 @@
 
 <script>
 import ClockingDay from "./ClockingDay";
-
+const timeNow = new Date()
+const getWeek = () => {
+  {
+    console.log('calc week')
+      const firstDayofYear = new Date(timeNow.getFullYear(), 0, 1)
+      const days = (timeNow - firstDayofYear) / 86400000
+      return  Math.floor((days + timeNow.getDay() + 1)/7)
+    }
+}
+const monday = new Date(timeNow - ((timeNow.getDay()-1)* (86400000)))
 export default {
   name: "ClockingWeek",
   data() {
     return {
+      weekStart: '',
       days: [
         { id: 0, name: "Monday" },
         { id: 1, name: "Tuseday" },
@@ -27,9 +38,12 @@ export default {
         { id: 4, name: "Friday" }
       ],
       totals: [0, 0, 0, 0, 0, 0, 0],
-      weekTotal: 0
+      weekTotal: 0,
+      dateMonday: monday.toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+      week: getWeek(),
     };
   },
+  
   components: {
     ClockingDay
   },
