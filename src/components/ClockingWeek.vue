@@ -37,7 +37,7 @@ export default {
         month: "short",
         year: "numeric"
       }),
-      week: 0//this.DateUtil.getWeek()//0//getWeek()
+      week: this.$getWeek(monday)
     };
   },
 
