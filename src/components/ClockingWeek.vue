@@ -17,10 +17,10 @@
 import ClockingDay from "./ClockingDay";
 const timeNow = new Date();
 
-const monday = new Date(timeNow - (timeNow.getDay() - 1) * 86400000);
 export default {
   name: "ClockingWeek",
   data() {
+    const monday = this.$getMonday()
     return {
       weekStart: "",
       days: [
@@ -37,7 +37,7 @@ export default {
         month: "short",
         year: "numeric"
       }),
-      week: this.$getWeek(monday)
+      week: this.$getWeek()
     };
   },
 
