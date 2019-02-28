@@ -1,28 +1,37 @@
 const DateUtil = {
   install(Vue, options) {
-    const timeNow = new Date()
-
+    
     const dateMidnight = () => {
-      const date = new Date()
-      const midnight = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-      console.log(midnight)
+      const d = new Date()
+      const midnight = new Date(d.getFullYear(), d.getMonth(), d.getDate())
       return midnight
     }
-    console.log('Hello...')
 
     Vue.prototype.$getWeek = (date) => {
       if (date == null) {
         date = dateMidnight()
       }
-      const firstDayofYear = new Date(date.getFullYear(), 0, 1);
+      const firstDayofYear = new Date(date.getFullYear(), 0, 1)
       const days = (date - firstDayofYear) / 86400000;
-      return Math.ceil((days + date.getDay() + 1) / 7);
+      return Math.ceil((days + date.getDay() + 1) / 7)
     }  
   
     Vue.prototype.$getMonday = () => {
-      
+      const timeNow = new Date()
       const m = new Date(timeNow - (timeNow.getDay() - 1) * 86400000)
       return m
+    }
+
+    Vue.prototype.$toCompactDate = (offset, date) => {
+      if (date == null) {
+        date = new Date()
+      }
+      if (offset == null) {
+        offset = 0
+      }
+      date.setDate(date.getDate() + offset)
+      const compact = date.toISOString().slice(0, 10).replace(/-/g,'')
+      return compact
     }
   } 
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="clockings-day">
-    <h3>{{ day }}</h3>
+    <h3>{{ day }} </h3>
     <div v-for="item in clockings" :key="item.id">
       <div><input v-model="item.timein" /></div>
       <div><input v-model="item.timeout" /></div>
@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "ClockingDay",
-  props: ["day", "id"],
+  props: ["day", "id", "index"],
   data() {
     return {
       clockings: [

@@ -6,6 +6,7 @@
       v-for="day in days"
       :key="day.name"
       :day="day.name"
+      :index="day.index"
       :id="day.id"
       @dayTotal="dayTotal"
     ></ClockingDay>
@@ -20,19 +21,18 @@ const timeNow = new Date();
 export default {
   name: "ClockingWeek",
   data() {
-    const monday = this.$getMonday()
     return {
       weekStart: "",
       days: [
-        { id: 0, name: "Monday" },
-        { id: 1, name: "Tuseday" },
-        { id: 2, name: "Wednesday" },
-        { id: 3, name: "Thursday" },
-        { id: 4, name: "Friday" }
+        { id: 0, name: "Monday", index: this.$toCompactDate(0) },
+        { id: 1, name: "Tuseday" , index: this.$toCompactDate(1)},
+        { id: 2, name: "Wednesday", index: this.$toCompactDate(2)},
+        { id: 3, name: "Thursday", index: this.$toCompactDate(3)},
+        { id: 4, name: "Friday", index: this.$toCompactDate(4)}
       ],
       totals: [0, 0, 0, 0, 0, 0, 0],
       weekTotal: 0,
-      dateMonday: monday.toLocaleString("en-GB", {
+      dateMonday: this.$getMonday().toLocaleString("en-GB", {
         day: "numeric",
         month: "short",
         year: "numeric"
