@@ -4,7 +4,7 @@
     <h3>{{ dateMonday }}</h3>
     <ClockingDay
       v-for="day in days"
-      :key="day.name"
+      :key="day.id"
       :day="day.name"
       :index="day.index"
       :id="day.id"
@@ -23,13 +23,6 @@ export default {
   data() {
     return {
       weekStart: "",
-      days: [
-        { id: 0, name: "Monday", index: this.$toCompactDate(0) },
-        { id: 1, name: "Tuseday" , index: this.$toCompactDate(1)},
-        { id: 2, name: "Wednesday", index: this.$toCompactDate(2)},
-        { id: 3, name: "Thursday", index: this.$toCompactDate(3)},
-        { id: 4, name: "Friday", index: this.$toCompactDate(4)}
-      ],
       totals: [0, 0, 0, 0, 0, 0, 0],
       weekTotal: 0,
       dateMonday: this.$getMonday().toLocaleString("en-GB", {
@@ -40,7 +33,18 @@ export default {
       week: this.$getWeek()
     };
   },
-
+  computed: {
+    days: function () {
+        const day = this.$getMonday()
+        let i, days = []
+        for (i = 0; i < 5; i++) {
+          days.push({ id: i, name: day.toLocaleString(
+            "en-GB", {weekday: "long"}), index: this.$toCompactDate(i) })
+          day.setDate(day.getDate() + 1)
+        }
+        return days
+      }
+  },
   components: {
     ClockingDay
   },
