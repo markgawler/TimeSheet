@@ -30,21 +30,42 @@ export default {
         month: "short",
         year: "numeric"
       }),
-      week: this.$getWeek()
+      week: this.$getWeek(),
+      weekTotalStored: 0
     };
   },
   computed: {
-    days: function () {
-        const day = this.$getMonday()
-        let i, days = []
-        for (i = 0; i < 5; i++) {
-          days.push({ id: i, name: day.toLocaleString(
-            "en-GB", {weekday: "long"}), index: this.$toCompactDate(i) })
-          day.setDate(day.getDate() + 1)
-        }
-        return days
+    days: function() {
+      const day = this.$getMonday();
+      let i,
+        days = [];
+      for (i = 0; i < 5; i++) {
+        days.push({
+          id: i,
+          name: day.toLocaleString("en-GB", { weekday: "long" }),
+          index: this.$toCompactDate(i)
+        });
+        day.setDate(day.getDate() + 1);
       }
+      return days;
+    },
+    /*clockingsByDate: function() {
+      const result = this.$store.getters.getclockingByDate("20190302")
+      if (result != null) {
+        return result.v;
+      }
+      return null;
+    },*/
+    //weekTotalStored: function() {
+    //  return this.$store.getters.getWeekTotal
+    //}
   },
+  /*mounted: function() {
+    this.$nextTick(function() {
+      const s = this.$store.getters.getWeekTotal
+      this.weekTotalStored = s
+    });
+  },*/
   components: {
     ClockingDay
   },
@@ -52,9 +73,9 @@ export default {
     dayTotal(value) {
       this.totals[value.id] = value.total;
       const total = this.totals.reduce((a, b) => a + b, 0); //sum the array
-      const h = Math.floor(total / 60);
-      const m = "00" + (total - h * 60);
-      this.weekTotal = h + ":" + m.substr(m.length - 2);
+      const h = Math.floor(total / 60)
+      const m = "00" + (total - h * 60)
+      this.weekTotal = h + ":" + m.substr(m.length - 2)
     }
   }
 };
