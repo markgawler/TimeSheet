@@ -34,7 +34,7 @@ export default {
       this.clockings.forEach(s => {
         t += minutes(s.timeout) - minutes(s.timein);
       });
-
+      this.$store.commit('updateDayClockings',{key: this.index, value: this.clockings})
       this.$emit("dayTotal", { id: this.id, total: t });
       const h = Math.floor(t / 60);
       const m = "00" + (t - h * 60);

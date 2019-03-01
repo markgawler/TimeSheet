@@ -3,16 +3,13 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
-    count: 0
+    DayClockings: {}
   },
 
   mutations: {
-    increment(state) {
-      state.count++;
+    updateDayClockings(state,payload) {
+      state.DayClockings[payload.key] = payload.value
     },
-    decrement(state) {
-      state.count--;
-    }
   },
   getters: {}
 });
